@@ -3,6 +3,7 @@
   "module": "index.esm.js",
   "scripts": {
     "build": "npm run build:ts && npm run build:index",
+    "build:bin": "rollup -c rollup.bin.config.js",
     "build:index": "rollup -c rollup.config.js",
     "build:plugin": "rollup -c rollup.plugin.config.js",
     "build:ts": "rollup -c rollup.typescript.config.js"

@@ -60,12 +60,13 @@ async function main(opts) {
     // sourcemap
     plugins: [
       urlImport(),
+      hashbang(),
       typescript({
         tsconfig: false,
         include: /\.tsx?$/,
         exclude: /\.d\.tsx?$/
       }),
-      fileImport(),
+      fileImport()
     ]
   })
   const { output: outputs } = await bundle.generate({
@@ -110,6 +111,31 @@ async function main(opts) {
   })
 }
 
+// hashbang() is derived from https://github.com/egoist/rollup-plugin-hashbang
+// MIT License EGOIST <0x142857@gmail.com> (https://egoist.moe)
+function hashbang() {
+  const shebangs = new Map()
+
+  return {
+    name: 'hashbang',
+    transform(code, id) {
+      // TODO sourcemap
+      if (code.startsWith('#!/')) {
+        const eol = code.indexOf('\n') + 1
+        shebangs.set(id, code.slice(0, eol))
+        return code.slice(eol)
+      }
+
+      return null
+    },
+    renderChunk(code, { isEntry, facadeModuleId }) {
+      if (!isEntry || !shebangs.has(facadeModuleId)) return
+
+      return shebangs.get(facadeModuleId) + '\n' + code
+    }
+  }
+}
+
 function fileImport() {
   const decoder = new TextDecoder('utf-8')
   return {
@@ -129,12 +155,12 @@ function error(msg) {
   exit(1)
 }
 
-function output (str) {
+function output(str) {
   const encoder = new TextEncoder()
   return stdout.write(encoder.encode(str))
 }
 
-function log (str) {
+function log(str) {
   const encoder = new TextEncoder()
   return stderr.write(encoder.encode(str))
 }

@@ -9,8 +9,9 @@
     "denorollup": "./bin/denorollup"
   },
   "scripts": {
-    "build": "chmod a+x bin/denorollup && npm run build:plugin",
-    "build:plugin": "cd rollup-plugin-typescript; npm run build",
+    "build": "npm run build:plugin && npm run build:bin",
+    "build:bin": "cd rollup-plugin-typescript && npm run build:bin && cd .. && chmod a+x bin/denorollup",
+    "build:plugin": "cd rollup-plugin-typescript && npm run build",
     "lint": "prettier --write -l cli.js",
     "test": "rm -f test/input/named.js && deno -A cli.js test/input/named.ts > test/output/named.js",
     "prepare": "npm run build"
