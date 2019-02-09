@@ -60,11 +60,12 @@ async function main(opts) {
     // sourcemap
     plugins: [
       urlImport(),
-      fileImport(),
       typescript({
+        tsconfig: false,
         include: /\.tsx?$/,
         exclude: /\.d\.tsx?$/
-      })
+      }),
+      fileImport(),
     ]
   })
   const { output: outputs } = await bundle.generate({

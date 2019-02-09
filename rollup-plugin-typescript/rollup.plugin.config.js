@@ -91,6 +91,7 @@ function inlineTslib() {
             )
           )
           .replace(', process.cwd()', '')
+          .replace('ts.DiagnosticCategory.Error', '""')
       }
     }
   }

@@ -12,7 +12,7 @@
     "build": "chmod a+x bin/denorollup && npm run build:plugin",
     "build:plugin": "cd rollup-plugin-typescript; npm run build",
     "lint": "prettier --write -l cli.js",
-    "test": "deno test/run.js && echo 'Test successful' || cd ..",
+    "test": "rm -f test/input/named.js && deno -A cli.js test/input/named.ts > test/output/named.js",
     "prepare": "npm run build"
   },
   "keywords": [
