@@ -13,6 +13,7 @@ Options:
 -i, --input <filename>  Input (alternative to <entry file>)
 -m, --sourcemap         Generate sourcemap (\`-m inline\` for inline map)
 -o, --file <output>     Single output file (if absent, prints to stdout)
+-T, --no-treeshake      Disable tree-shaking optimisations
 -v, --version           Show version number
 -w, --watch             Watch files in bundle and rebuild on changes
 Example:
@@ -25,7 +26,7 @@ Example:
 `
 
 async function main(opts) {
-  const { _: inputs, dir, file, help, input, sourcemap, version, watch } = opts
+  const { _: inputs, dir, file, help, input, sourcemap, T, version, watch } = opts
 
   if (version) {
     error('version is not yet implemented')
@@ -58,6 +59,7 @@ async function main(opts) {
   const bundle = await rollup({
     input: entry,
     external: ['deno'],
+    treeshake: !T,
     // sourcemap
     plugins: [
       // debug(),
@@ -155,9 +157,15 @@ function fileImport() {
 function debug() {
   return {
     name: 'debug',
-    resolveId: (a, b) => log('resolveId', a, b) || null,
-    load: a => log('load', a) || null,
-    transform: (c, a) => log('transform', a) || null
+    resolveId(a, b) {
+      log('resolveId', a, b)
+    },
+    load(a) {
+      log('load', a)
+    },
+    transform(c, a) {
+      log('transform', a)
+    }
   }
 }
 
@@ -171,21 +179,22 @@ function output(str) {
   return stdout.write(encoder.encode(str))
 }
 
-function log(str) {
+function log() {
   const encoder = new TextEncoder()
-  return stderr.write(encoder.encode(str))
+  return stderr.write(encoder.encode(Array.from(arguments).join(' ') + '\n'))
 }
 
 main(
   parse(args.slice(1), {
     string: ['dir', 'file', 'input', 'sourcemap'],
-    boolean: ['help', 'version', 'watch'],
+    boolean: ['help', 'no-treeshake', 'version', 'watch'],
     alias: {
       d: 'dir',
       h: 'help',
       i: 'input',
       m: 'sourcemap',
       o: 'file',
+      T: 'no-treeshake',
       v: 'version',
       w: 'watch'
     }
