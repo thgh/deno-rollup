@@ -32,6 +32,9 @@
   },
   "files": [
     "bin",
-    "cli.js"
+    "cli.js",
+    "rollup-plugin-typescript/index.cjs.js",
+    "rollup-plugin-typescript/index.esm.js",
+    "rollup-plugin-typescript/typescript.out.js"
   ]
 }
