@@ -1,0 +1,18 @@
+{
+  "main": "index.cjs.js",
+  "module": "index.esm.js",
+  "scripts": {
+    "build": "yarn build:ts && yarn build:index",
+    "build:index": "rollup -c",
+    "build:ts": "deno -A https://raw.githubusercontent.com/thgh/deno-rollup/master/cli.js typescript.js && sed -i -e 's/ global;/ window;/g' typescript.out.js"
+  },
+  "dependencies": {
+    "rollup": "^1.1.2",
+    "rollup-plugin-buble": "^0.19.6",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "rollup-plugin-typescript": "^1.0.0",
+    "tslib": "^1.9.3",
+    "typescript": "^3.3.3"
+  }
+}

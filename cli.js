@@ -1,5 +1,6 @@
 import { rollup } from 'https://unpkg.com/rollup@1.1.2/dist/rollup.browser.es.js'
 import urlImport from 'https://unpkg.com/rollup-plugin-url-import@0.3.0/dist/index.mjs'
+import typescript from './rollup-plugin-typescript/index.esm.js'
 import { args, exit, readFile, writeFile, stdout, stderr } from 'deno'
 import { parse } from 'https://deno.land/x/flags/mod.ts'
 
@@ -7,6 +8,7 @@ const HELP_MESSAGE = `
 Bundle the given file and its imports into one file.
 Usage: deno-rollup [options] <entry file>
 Options:
+-d, --dir <dirname>     Directory for chunks (if absent, prints to stdout)
 -h, --help              Show this help message
 -i, --input <filename>  Input (alternative to <entry file>)
 -m, --sourcemap         Generate sourcemap (\`-m inline\` for inline map)
@@ -52,7 +54,14 @@ async function main(opts) {
   const bundle = await rollup({
     input: entry,
     // sourcemap
-    plugins: [urlImport(), fileImport()]
+    plugins: [
+      urlImport(),
+      fileImport(),
+      typescript({
+        include: /\.tsx?$/,
+        exclude: /\.d\.tsx?$/
+      })
+    ]
   })
   const { output: outputs } = await bundle.generate({
     dir,

@@ -9,7 +9,8 @@
     "deno-rollup": "./bin/deno-rollup"
   },
   "scripts": {
-    "build": "chmod a+x bin/deno-rollup",
+    "build": "chmod a+x bin/deno-rollup && yarn build:plugin",
+    "build:plugin": "cd rollup-plugin-typescript; yarn build",
     "lint": "prettier --write -l cli.js",
     "test": "deno test/run.js && echo 'Test successful' || cd ..",
     "prepublish": "npm run build"
