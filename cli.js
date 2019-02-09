@@ -153,7 +153,9 @@ main(
       w: 'watch'
     }
   })
-)
+).catch(err => {
+  error(err.message)
+})
 
 function cleanSourcemap(map) {
   map.sourcesContent = map.sourcesContent.map(clean)
