@@ -1,15 +1,15 @@
 {
-  "name": "deno-rollup",
+  "name": "denorollup",
   "version": "0.1.0",
   "description": "Bundle with deno",
   "main": "cli.js",
   "module": "cli.js",
   "jsnext:main": "cli.js",
   "bin": {
-    "deno-rollup": "./bin/deno-rollup"
+    "denorollup": "./bin/denorollup"
   },
   "scripts": {
-    "build": "chmod a+x bin/deno-rollup && npm run build:plugin",
+    "build": "chmod a+x bin/denorollup && npm run build:plugin",
     "build:plugin": "cd rollup-plugin-typescript; npm run build",
     "lint": "prettier --write -l cli.js",
     "test": "deno test/run.js && echo 'Test successful' || cd ..",

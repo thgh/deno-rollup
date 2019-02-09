@@ -1,18 +1,18 @@
-# deno-rollup
+# denorollup
 Rollup CLI for deno
 
 ## Installation
 
 ```
-npm install -g deno-rollup
+npm install -g denorollup
 # or
-yarn global add deno-rollup
+yarn global add denorollup
 ```
 
 ## Usage
 
 ```
-deno-rollup [options] <entry file>
+denorollup [options] <entry file>
 Options:
 -d, --dir <dirname>     Directory for chunks (if absent, prints to stdout)
 -h, --help              Show this help message
@@ -26,10 +26,10 @@ Options:
 Examples:
 
 ```
-deno-rollup input.ts > output.ts
+denorollup input.ts > output.ts
 
-deno-rollup -m -i input.ts -o output.ts
-deno-rollup --sourcemap --input input.ts --file output.ts
+denorollup -m -i input.ts -o output.ts
+denorollup --sourcemap --input input.ts --file output.ts
 ```
 
 ## Build

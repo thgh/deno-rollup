@@ -6,7 +6,7 @@ import { parse } from 'https://deno.land/x/flags/mod.ts'
 
 const HELP_MESSAGE = `
 Rollup TypeScript and URL imports into one JS bundle.
-Usage: deno-rollup [options] <entry file>
+Usage: denorollup [options] <entry file>
 Options:
 -d, --dir <dirname>     Directory for chunks (if absent, prints to stdout)
 -h, --help              Show this help message
@@ -16,11 +16,11 @@ Options:
 -v, --version           Show version number
 -w, --watch             Watch files in bundle and rebuild on changes
 Example:
-  deno-rollup input.ts > output.js
+  denorollup input.ts > output.js
                         Bundles input.ts and writes to output.js
-  deno-rollup input.ts -o output.js
+  denorollup input.ts -o output.js
                         Bundles input.ts and writes to output.js
-  deno-rollup input.ts --dir dist
+  denorollup input.ts --dir dist
                         Bundles input.ts and writes to dist/input.js
 `
 
@@ -35,7 +35,7 @@ async function main(opts) {
     error('watch is not yet implemented')
   }
 
-  if (inputs[0] && inputs[0].endsWith('deno-rollup')) {
+  if (inputs[0] && inputs[0].endsWith('denorollup')) {
     inputs.unshift()
   }
 
