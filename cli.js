@@ -57,8 +57,10 @@ async function main(opts) {
   // Start bundling
   const bundle = await rollup({
     input: entry,
+    external: ['deno'],
     // sourcemap
     plugins: [
+      // debug(),
       urlImport(),
       hashbang(),
       typescript({
@@ -147,6 +149,15 @@ function fileImport() {
       const data = await readFile(filePath)
       return decoder.decode(data)
     }
+  }
+}
+
+function debug() {
+  return {
+    name: 'debug',
+    resolveId: (a, b) => log('resolveId', a, b) || null,
+    load: a => log('load', a) || null,
+    transform: (c, a) => log('transform', a) || null
   }
 }
 
