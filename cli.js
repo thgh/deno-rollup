@@ -5,7 +5,7 @@ import { args, exit, readFile, writeFile, stdout, stderr } from 'deno'
 import { parse } from 'https://deno.land/x/flags/mod.ts'
 
 const HELP_MESSAGE = `
-Bundle the given file and its imports into one file.
+Rollup TypeScript and URL imports into one JS bundle.
 Usage: deno-rollup [options] <entry file>
 Options:
 -d, --dir <dirname>     Directory for chunks (if absent, prints to stdout)
@@ -16,8 +16,12 @@ Options:
 -v, --version           Show version number
 -w, --watch             Watch files in bundle and rebuild on changes
 Example:
-  deno-rollup input.js > output.js
-                        Bundles input.js and writes to output.js
+  deno-rollup input.ts > output.js
+                        Bundles input.ts and writes to output.js
+  deno-rollup input.ts -o output.js
+                        Bundles input.ts and writes to output.js
+  deno-rollup input.ts --dir dist
+                        Bundles input.ts and writes to dist/input.js
 `
 
 async function main(opts) {

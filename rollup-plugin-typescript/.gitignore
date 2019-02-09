@@ -1,7 +1,5 @@
 /node_modules
 
-/index.cjs.js
 /index.esm.js
 
-/typescript.out.js
-/typescript.out.js-e
+/typescript.esm.min.js

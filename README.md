@@ -34,7 +34,6 @@ deno-rollup --sourcemap --input input.ts --file output.ts
 
 ## Build
 
-To build this tool you need:
-* node
-* deno
-* yarn
+To build this tool you need to have installed both Node and Deno
+
+`npm run build`

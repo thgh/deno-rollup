@@ -7,7 +7,7 @@ import pkg from './package.json'
 export default {
   input: './node_modules/rollup-plugin-typescript/src/index.js',
 
-  external: ['./typescript.out.js'],
+  external: ['./typescript.esm.min.js'],
 
   plugins: [
     virtualResolve(),
@@ -29,7 +29,7 @@ function virtualResolve(argument) {
   return {
     resolveId(id) {
       if (id === 'typescript') {
-        return './typescript.out.js'
+        return './typescript.esm.min.js'
       }
       if (id === 'resolve' || id === 'micromatch') {
         return id
@@ -71,7 +71,7 @@ export function statSync () {};
 
 function inlineTslib() {
   return {
-    banner () {
+    banner() {
       return `const process = {
         cwd() {
           return '.'
@@ -80,13 +80,17 @@ function inlineTslib() {
     },
     transform(code, id) {
       if (id.includes('rollup-plugin-typescript/src/index.js')) {
-        console.log('inlineTslib')
-        return code.replace(
-          'options.tslib',
-          JSON.stringify(
-            readFileSync(__dirname + '/node_modules/tslib/tslib.es6.js', 'utf-8')
+        return code
+          .replace(
+            'options.tslib',
+            JSON.stringify(
+              readFileSync(
+                __dirname + '/node_modules/tslib/tslib.es6.js',
+                'utf-8'
+              )
+            )
           )
-        ).replace(', process.cwd()', '')
+          .replace(', process.cwd()', '')
       }
     }
   }
