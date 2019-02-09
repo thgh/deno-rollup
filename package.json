@@ -1,0 +1,36 @@
+{
+  "name": "deno-rollup",
+  "version": "0.1.0",
+  "description": "Bundle with deno",
+  "main": "cli.js",
+  "module": "cli.js",
+  "jsnext:main": "cli.js",
+  "bin": {
+    "deno-rollup": "./bin/deno-rollup"
+  },
+  "scripts": {
+    "build": "chmod a+x bin/deno-rollup",
+    "lint": "prettier --write -l cli.js",
+    "test": "deno test/run.js && echo 'Test successful' || cd ..",
+    "prepublish": "npm run build"
+  },
+  "keywords": [
+    "deno",
+    "bundle",
+    "rollup"
+  ],
+  "license": "MIT",
+  "author": "Thomas Ghysels <info@thomasg.be>",
+  "homepage": "https://github.com/thgh/deno-rollup",
+  "bugs": {
+    "url": "https://github.com/thgh/deno-rollup/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thgh/deno-rollup"
+  },
+  "files": [
+    "bin",
+    "cli.js"
+  ]
+}
