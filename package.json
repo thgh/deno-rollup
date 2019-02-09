@@ -1,6 +1,6 @@
 {
   "name": "denorollup",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Bundle with deno",
   "main": "cli.js",
   "module": "cli.js",
